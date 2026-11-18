@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sample academic support indicator dashboard">
+    <title>Student Support Indicator</title>
+    <link rel="stylesheet" href="/style.css">
+  </head>
+  <body>
+    <main class="page">
+      <header class="hero">
+        <p class="eyebrow">CLASSROOM DEMONSTRATION · SAMPLE DATA</p>
+        <h1>Student Support Indicator</h1>
+        <p class="intro">
+          A transparent, rule-based view of where a supportive check-in may help.
+          This is not a validated prediction or a substitute for educator judgment.
+        </p>
+      </header>
+
+      <section class="notice" aria-label="Important data notice">
+        <strong>Demonstration only.</strong>
+        No real student data is provided by default. Thresholds are example
+        assumptions, not a validated prediction.
+      </section>
+
+      <section class="panel">
+        <h2>Analyze your data</h2>
+        <p class="muted">
+          Enter one anonymous record or upload a CSV. Submissions are processed
+          for this response only and are not saved. Do not enter names or other
+          identifying information.
+        </p>
+        {% if error %}
+        <p class="error" role="alert">{{ error }}</p>
+        {% endif %}
+        <div class="input-grid">
+          <form method="post" class="input-form">
+            <input type="hidden" name="input_type" value="manual">
+            <h3>Manual entry</h3>
+            <label>
+              Anonymous ID
+              <input name="student_id" required maxlength="40" autocomplete="off">
+            </label>
+            <label>
+              Attendance (0–100)
+              <input name="attendance_pct" type="number" min="0" max="100" step="any" required>
+            </label>
+            <label>
+              Internal marks (0–100)
+              <input name="internal_marks" type="number" min="0" max="100" step="any" required>
+            </label>
+            <label>
+              Assignment score (0–100)
+              <input name="assignment_score" type="number" min="0" max="100" step="any" required>
+            </label>
+            <button type="submit">Analyze this record</button>
+          </form>
+
+          <form method="post" enctype="multipart/form-data" class="input-form">
+            <input type="hidden" name="input_type" value="csv">
+            <h3>CSV upload</h3>
+            <p class="muted">
+              Required columns, in this order:
+              <code>student_id, attendance_pct, internal_marks, assignment_score</code>
+            </p>
+            <label>
+              CSV file
+              <input name="csv_file" type="file" accept=".csv,text/csv" required>
+            </label>
+            <button type="submit">Analyze CSV</button>
+          </form>
+        </div>
+      </section>
+
+      {% if submitted %}
+      <section class="notice result-notice" aria-label="Submission retention notice">
+        Results below are based only on the data submitted in this request. They
+        are not saved after the response.
+      </section>
+      {% endif %}
+
+      {% if counts %}
+      <section class="summary" aria-label="Students by support level">
+        {% for level, count in counts.items() %}
+        <article class="summary-card {{ level|lower|replace(' ', '-') }}">
+          <span>{{ level }}</span>
+          <strong>{{ count }}</strong>
+          <small>of {{ total_students }} students</small>
+        </article>
+        {% endfor %}
+      </section>
+
+      <section class="panel">
+        <h2>Class overview</h2>
+        <img
+          class="chart"
+          src="data:image/png;base64,{{ chart_data }}"
+          alt="Charts showing student support levels and attendance compared with internal marks"
+        >
+      </section>
+
+      <section class="panel">
+        <h2>Suggested supportive follow-up</h2>
+        <div class="action-list">
+          {% for level, action in actions.items() %}
+          <article>
+            <h3>{{ level }}</h3>
+            <p>{{ action }}</p>
+          </article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Possible check-ins</h2>
+        <p class="muted">
+          Rows use anonymous IDs. A flagged data check means
+          at least one measure was missing or outside the expected 0–100 range.
+        </p>
+        {% if students %}
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Attendance</th>
+                <th scope="col">Internal</th>
+                <th scope="col">Assignment</th>
+                <th scope="col">Points</th>
+                <th scope="col">Support level</th>
+                <th scope="col">Signals</th>
+                <th scope="col">Data check</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student in students %}
+              <tr>
+                <td>{{ student.student_id }}</td>
+                <td>{{ "%.1f"|format(student.attendance_pct) }}%</td>
+                <td>{{ "%.1f"|format(student.internal_marks) }}</td>
+                <td>{{ "%.1f"|format(student.assignment_score) }}</td>
+                <td>{{ student.concern_points }}</td>
+                <td>{{ student.support_level }}</td>
+                <td>{{ student.main_signals }}</td>
+                <td>{{ "Review" if student.data_check_needed else "No" }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+        <p>
+          {% if submitted %}
+          No submitted records currently need a check-in.
+          {% else %}
+          No sample students currently need a check-in.
+          {% endif %}
+        </p>
+        {% endif %}
+      </section>
+      {% elif not error %}
+      <section class="panel">
+        <h2>Results</h2>
+        <p>There are no records to display.</p>
+      </section>
+      {% endif %}
+
+      <footer>
+        Use results as a prompt for a private, supportive conversation—not as a
+        label or decision about a student.
+        <p>Copyright © 2026 Kashi Mahtta — Code Hacker Team.</p>
+      </footer>
+    </main>
+  </body>
+</html>
