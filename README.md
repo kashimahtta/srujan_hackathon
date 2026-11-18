@@ -1,7 +1,7 @@
 # Student Support Indicator
 
-A classroom demonstration that generates invented student data, applies transparent
-rule-based support levels, and displays results in a Flask dashboard.
+A classroom demonstration that displays invented student results, applies transparent
+rule-based support levels to new input, and visualizes results in a Flask dashboard.
 
 The project helps demonstrate how attendance, internal marks, and assignment scores
 can highlight opportunities for a supportive student check-in. It provides
@@ -14,7 +14,7 @@ explanations and suggested follow-up actions alongside charts and summary counts
 
 ## Features
 
-- View an automatically generated sample class and its support-level summary.
+- View a sample class from the included demo CSV and its support-level summary.
 - Analyze one anonymous record using the form, or multiple records using CSV upload.
 - Review concern points, signals, a chart, and suggested supportive actions.
 - Run the original command-line version to export a CSV report and chart.
@@ -55,6 +55,7 @@ The total determines the sample support level: **On track** (0–1 points),
 ├── student_support/
 │   ├── assessment.py              # Concern points and support levels
 │   ├── data.py                    # Sample-data generation and cleaning
+│   ├── demo_results.csv           # Default dashboard demo results
 │   ├── reporting.py               # Console output, CSV, and chart
 │   ├── service.py                 # Shared data-to-results pipeline
 │   ├── web.py                     # Flask routes and input validation
@@ -126,7 +127,7 @@ demo-002,90,80,85
 Each ID must be non-empty and no longer than 40 characters. All three measures
 must be numeric values from 0 to 100. CSV requests are limited to 2 MB. Submitted
 data is processed for that response only and is not saved by the application;
-refreshing the page returns to the generated sample.
+refreshing the page returns to the demo CSV.
 
 ## Command-line report
 

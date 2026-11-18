@@ -1,8 +1,12 @@
 from io import BytesIO
 import unittest
+from unittest.mock import patch
+
+import pandas as pd
 
 from student_support.assessment import assess_students
 from student_support.data import clean_data, create_sample_data
+from student_support.service import DEMO_RESULTS_PATH, build_results
 from student_support.web import app
 
 
@@ -30,6 +34,21 @@ class StudentSupportTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"Demonstration only", response.data)
         self.assertIn(b"data:image/png;base64", response.data)
+
+    def test_dashboard_uses_supplied_demo_csv(self):
+        results = build_results()
+        self.assertEqual(len(results), 40)
+        self.assertEqual(
+            results["support_level"].value_counts().to_dict(),
+            {"At risk": 6, "Needs attention": 14, "On track": 20},
+        )
+        self.assertTrue(
+            results.loc[results["student_id"] == "S006", "data_check_needed"].iloc[0]
+        )
+        with patch("student_support.service.pd.read_csv", wraps=pd.read_csv) as read_csv:
+            response = self.client.get("/")
+        read_csv.assert_called_once_with(DEMO_RESULTS_PATH)
+        self.assertIn(b"S005", response.data)
 
     def test_manual_submission_is_validated_and_not_persisted(self):
         response = self.client.post(

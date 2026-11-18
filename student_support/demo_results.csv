@@ -1,0 +1,41 @@
+student_id,attendance_pct,internal_marks,assignment_score,data_check_needed,attendance_pts,marks_pts,assignment_pts,concern_points,support_level,main_signals
+S005,61.1,33.2,49.3,False,2,2,2,6,At risk,"attendance 61%, internal marks 33, assignments 49"
+S016,68.2,44.6,48.7,False,2,2,2,6,At risk,"attendance 68%, internal marks 45, assignments 49"
+S002,72.3,47.9,55.9,False,2,2,1,5,At risk,"attendance 72%, internal marks 48, assignments 56"
+S010,71.8,57.9,49.5,False,2,1,2,5,At risk,"attendance 72%, internal marks 58, assignments 50"
+S033,70.3,54.7,47.9,False,2,1,2,5,At risk,"attendance 70%, internal marks 55, assignments 48"
+S034,74.3,45.1,53.5,False,2,2,1,5,At risk,"attendance 74%, internal marks 45, assignments 54"
+S006,82.3,52.8,53.9,True,1,1,1,3,Needs attention,"attendance 82%, internal marks 53, assignments 54"
+S018,77.9,46.5,62.2,False,1,2,0,3,Needs attention,"attendance 78%, internal marks 46"
+S022,71.5,65.9,51.2,False,2,0,1,3,Needs attention,"attendance 72%, assignments 51"
+S025,79.3,53.3,55.9,False,1,1,1,3,Needs attention,"attendance 79%, internal marks 53, assignments 56"
+S032,70.3,61.8,54.4,False,2,0,1,3,Needs attention,"attendance 70%, assignments 54"
+S038,72.4,55.1,64.9,False,2,1,0,3,Needs attention,"attendance 72%, internal marks 55"
+S039,74.9,66.3,53.3,False,2,0,1,3,Needs attention,"attendance 75%, assignments 53"
+S008,78.0,61.3,54.4,False,1,0,1,2,Needs attention,"attendance 78%, assignments 54"
+S013,73.4,64.7,73.9,True,2,0,0,2,Needs attention,attendance 73%
+S015,82.3,58.8,62.3,False,1,1,0,2,Needs attention,"attendance 82%, internal marks 59"
+S020,84.3,58.1,90.7,False,1,1,0,2,Needs attention,"attendance 84%, internal marks 58"
+S021,69.7,60.1,67.0,True,2,0,0,2,Needs attention,attendance 70%
+S026,80.4,59.3,60.1,False,1,1,0,2,Needs attention,"attendance 80%, internal marks 59"
+S030,83.4,58.1,74.9,False,1,1,0,2,Needs attention,"attendance 83%, internal marks 58"
+S003,84.2,71.5,79.5,False,1,0,0,1,On track,attendance 84%
+S009,83.2,68.2,62.7,False,1,0,0,1,On track,attendance 83%
+S017,82.3,60.2,75.3,False,1,0,0,1,On track,attendance 82%
+S019,84.5,78.3,95.4,False,1,0,0,1,On track,attendance 84%
+S024,81.4,68.3,68.1,False,1,0,0,1,On track,attendance 81%
+S027,83.6,64.7,70.0,False,1,0,0,1,On track,attendance 84%
+S028,81.3,67.0,71.6,False,1,0,0,1,On track,attendance 81%
+S037,76.7,65.3,67.6,False,1,0,0,1,On track,attendance 77%
+S001,86.8,71.9,63.8,False,0,0,0,0,On track,no concerns
+S004,90.6,73.6,91.1,False,0,0,0,0,On track,no concerns
+S007,85.6,63.2,81.4,False,0,0,0,0,On track,no concerns
+S011,90.2,80.2,76.3,False,0,0,0,0,On track,no concerns
+S012,90.9,73.6,67.1,False,0,0,0,0,On track,no concerns
+S014,89.7,78.0,80.9,False,0,0,0,0,On track,no concerns
+S023,93.0,77.2,66.8,False,0,0,0,0,On track,no concerns
+S029,88.4,75.8,81.9,False,0,0,0,0,On track,no concerns
+S031,95.0,93.7,94.6,False,0,0,0,0,On track,no concerns
+S035,86.9,72.9,75.6,False,0,0,0,0,On track,no concerns
+S036,94.7,74.8,96.8,False,0,0,0,0,On track,no concerns
+S040,85.0,71.1,67.0,False,0,0,0,0,On track,no concerns
