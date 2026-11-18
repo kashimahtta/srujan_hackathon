@@ -3,9 +3,47 @@
 A classroom demonstration that generates invented student data, applies transparent
 rule-based support levels, and displays results in a Flask dashboard.
 
-> **Sample data only:** the included dataset is invented. This indicator is not a
-> validated prediction and should only prompt supportive conversations, never
-> determine decisions about a student.
+The project helps demonstrate how attendance, internal marks, and assignment scores
+can highlight opportunities for a supportive student check-in. It provides
+explanations and suggested follow-up actions alongside charts and summary counts.
+
+> **Educational demonstration only:** the included dataset is invented and the
+> thresholds are assumptions, not validated predictions. Do not upload real student
+> data or identifying information, and do not use the results to make decisions
+> about a student.
+
+## Features
+
+- View an automatically generated sample class and its support-level summary.
+- Analyze one anonymous record using the form, or multiple records using CSV upload.
+- Review concern points, signals, a chart, and suggested supportive actions.
+- Run the original command-line version to export a CSV report and chart.
+
+## Tools and technologies
+
+| Technology | Purpose |
+| --- | --- |
+| Python | Application and data-processing language |
+| Flask and Jinja | Web routes, form handling, and HTML templates |
+| pandas | Data cleaning, tabular analysis, and CSV processing |
+| NumPy | Reproducible sample-data generation |
+| Matplotlib | Support-level and attendance charts |
+| HTML and CSS | Dashboard layout and styling |
+| GitHub Actions | Automated tests with Python 3.11 and 3.12 |
+| Vercel | Flask deployment |
+
+## How the indicator works
+
+Each measure contributes concern points. These cutoffs are examples only:
+
+| Measure | 2 points | 1 point | 0 points |
+| --- | --- | --- | --- |
+| Attendance (%) | Below 75 | 75 to below 85 | 85 or above |
+| Internal marks | Below 50 | 50 to below 60 | 60 or above |
+| Assignment score | Below 50 | 50 to below 60 | 60 or above |
+
+The total determines the sample support level: **On track** (0–1 points),
+**Needs attention** (2–3 points), or **At risk** (4–6 points).
 
 ## Project structure
 
@@ -29,35 +67,70 @@ rule-based support levels, and displays results in a Flask dashboard.
 └── vercel.json
 ```
 
-## Dashboard features
-
-- View generated sample data.
-- Enter one record manually or upload a CSV for multiple records.
-- CSV columns must be in this order:
-  `student_id, attendance_pct, internal_marks, assignment_score`.
-- IDs must be anonymous; measures must be numeric values from 0 to 100.
-- Submitted data is processed for that request only and is not saved.
-
-Do not upload real student data or identifying information.
-
 ## Run locally
 
-Create and activate a virtual environment, then install dependencies:
+You need Python and pip installed. Git is needed if you clone the repository.
+Python 3.11 and 3.12 are tested in GitHub Actions.
+
+1. Clone the project and open its folder:
+
+```bash
+git clone https://github.com/kashimahtta/srujan_hackathon.git
+cd srujan_hackathon
+```
+
+If you already have the project files, open a terminal in the project folder instead.
+
+2. Create and activate a virtual environment:
+
+**Windows PowerShell**
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+**macOS / Linux**
 
 ```bash
 python -m venv .venv
+source .venv/bin/activate
+```
+
+3. Install dependencies:
+
+```bash
 python -m pip install -r requirements.txt
 ```
 
-Run the Flask dashboard:
+4. Start the dashboard:
 
 ```bash
-flask --app app run
+python -m flask --app app run
 ```
 
-Open `http://127.0.0.1:5000`.
+5. Open [http://127.0.0.1:5000](http://127.0.0.1:5000) in your browser.
+   Stop the server with `Ctrl+C`.
 
-The original command-line workflow is also available:
+## Enter data
+
+Use the manual form for one anonymous record, or upload a UTF-8 CSV with exactly
+these columns in this order:
+
+```csv
+student_id,attendance_pct,internal_marks,assignment_score
+demo-001,72,48,55
+demo-002,90,80,85
+```
+
+Each ID must be non-empty and no longer than 40 characters. All three measures
+must be numeric values from 0 to 100. CSV requests are limited to 2 MB. Submitted
+data is processed for that response only and is not saved by the application;
+refreshing the page returns to the generated sample.
+
+## Command-line report
+
+With the same dependencies installed, run:
 
 ```bash
 python student_support_project.py
